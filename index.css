@@ -1,0 +1,13 @@
+html,body{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    display:flex;
+    justify-content: center;
+}
+
+canvas{
+    background: pink;
+}
