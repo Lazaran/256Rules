@@ -16,6 +16,8 @@ var stripLength = canvWide/divisor;
 var starter = []
 var ruleList=[]
 
+var canvColor = c.style.background
+console.log(canvColor)
 
 
 //Canvas Square builder
@@ -91,7 +93,7 @@ function daftWriter(inArr, rules){
 function daftReader(inArr, lvl){
     for (let i = 0; i < stripLength; i++){
         if (inArr[i] == 1){
-            let tomp = new Square(i*divisor,lvl*divisor,divisor,divisor, "#FF0000")
+            let tomp = new Square(i*divisor,lvl*divisor,divisor,divisor, "#000000")
             tomp.build()
         }
         else {
@@ -179,19 +181,39 @@ daftDefault()
 daftRules(8,"")
 var count = 0;
 
-
+//Initial function, generates the design from the starting array and a given ruleset
 function daftA(){
     daftAllmighty(starter, daftRuleParser(ruleList[count]))
     count++;
-    if (count > 256){
+    if (count >= 256){
         count = 0;
     }
-    setTimeout(daftB, 900)
+    setTimeout(daftB, 1000)
 }
 
+
+//Middle function, fades in rectangles of background color to fade out the design
 function daftB(){
+    let trent = setInterval(fadeAway, 50)
+    let counter = 0;
+    function fadeAway(){
+        ctx.globalAlpha = counter;
+        ctx.fillRect(0,0,canvWide,canvHigh)
+        ctx.fillStyle = canvColor
+        counter += 0.1
+        if (counter >= 1){
+            setTimeout(daftC,400)
+            counter = 0;
+            clearInterval(trent)
+        }
+    }
+
+}
+
+//End function, clears the canvas and resets rule list
+function daftC(){
     daftClear()
-    if (count > 256){
+    if (count >= 256){
         count = 0;
     }
     setTimeout(daftA, 100)

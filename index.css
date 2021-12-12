@@ -1,13 +1,69 @@
 html,body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0px;
     padding: 0px;
 }
 
-body{
-    display:flex;
-    justify-content: center;
+/* canvas {
+    position:static;
+    float:right;
+} */
+
+#canvholder {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    background: #669B90;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
-canvas{
-    background: pink;
+canvas {
+    border: #574145 5px solid;
+    border-radius: 1%;
 }
+
+
+#ted {
+    height: 100vh;
+    width: 100vw;
+    display:flex;
+    justify-content: right;
+    align-items: center;
+    background:#669B90;
+}
+
+#darker {
+    height: 20000px;
+    width: 100px;
+    background: #00755C;
+}
+
+/* #lighter {
+    height: 50px;
+    width: 100px;
+    background: #;
+} */
+
+#navbar {
+    background-color: #333; /* Black background color */
+    position: fixed; /* Make it stick/fixed */
+    top: 0; /* Stay on top */
+    width: 100%; /* Full width */
+    transition: top 0.3s; /* Transition effect when sliding down (and up) */
+  }
+  
+  /* Style the navbar links */
+  #navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+  }
+  
+  #navbar a:hover {
+    background-color: #ddd;
+    color: black;
+  }
