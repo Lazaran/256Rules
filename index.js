@@ -1,6 +1,13 @@
 
 var divisor = 2;
 
+
+var runRule;
+var dalist = document.getElementById("dalist")
+var startbar = document.getElementById("bobo")
+var wider = 40;
+var higher = 20;
+
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
@@ -17,8 +24,38 @@ var starter = []
 var ruleList=[]
 
 var canvColor = c.style.background
-console.log(canvColor)
 
+//Start array square builder
+class DivSquare {
+    constructor(height_,width_,color_,index_){
+        this.height = height_
+        this.width = width_
+        this.color = color_
+        this.index = index_
+    }
+
+    build(){
+        this.tmp = document.createElement("BUTTON")
+        // this.tmp.style.height = this.height + "px"
+        this.tmp.style.width = this.width + "px"
+        this.tmp.innerHTML = this.index
+    };
+
+    coloring(){
+        if (this.color == "black"){
+            this.tmp.setAttribute("class", "startpartB")
+        }
+        else {
+            this.tmp.setAttribute("class", "startpartW")
+        }
+        this.tmp.setAttribute("id", String(this.index)+"a")
+        this.tmp.setAttribute("onClick", "daftArrayClicker(this.innerHTML, this.id)" )
+    }
+
+    addon(){
+        startbar.appendChild(this.tmp)
+    }
+}
 
 //Canvas Square builder
 class Square {
@@ -102,13 +139,12 @@ function daftReader(inArr, lvl){
     }
 }
 
-
+//DEPRECATED
 //Basic draw to screen, alternates color everytime to see each block
 function doDraw(){
     let bob = true;
     for (let y = 0; y < hightimes; y++){
         for (let x = 0; x < stripLength; x++){
-            console.log(x)
             if (bob){
                 let tomp = new Square(x*divisor,y*divisor,divisor,divisor, "#FF0000")
                 tomp.build()
@@ -149,23 +185,12 @@ function daftRuleParser(inStr){
     return outArr
 }
 
-function daftDefault(){
-    for (let u = 0; u < stripLength; u++){
-        let tmp = 0;
-        if (u == Math.ceil(stripLength/2)){
-            tmp = 1
-        }
-        starter.push(tmp)
-    }
-}
-
-
 //Clears the canvas
 function daftClear(){
     ctx.clearRect(0, 0, canvWide, canvHigh);
 }
 
-
+//Combined everything
 function daftAllmighty(starter, rules){
     let initial = starter
     for (let k = 0; k < hightimes; k++){
@@ -176,12 +201,85 @@ function daftAllmighty(starter, rules){
     
 }
 
+//Watches the starter array and changes both the onscreen color and the backend array values
+function daftArrayClicker(index, selfid){
+    let tmp = document.getElementById(selfid)
+    if (starter[index] == 0){
+        starter[index] = 1
+    }
+    else {
+        starter[index] = 0
+    }
+    if (tmp.getAttribute("class") == "startpartW"){
+        tmp.setAttribute("class", "startpartB")
+    }
+    else {
+        tmp.setAttribute("class", "startpartW")
+    }
+}
+
+//Build the start array
+function daftArrayStarter(){
+    let tmp = document.getElementById("bobo")
+    tmp.style.width = (stripLength*wider)
+    for (let i = 0; i < stripLength; i++){
+        let temp = new DivSquare(wider,wider,"bob",i)
+        temp.build()
+        temp.coloring()
+        temp.addon()
+        starter.push(0)
+    }
+}
+
+//Builds the scrolling list for the rules
+function daftRulesBuild(){
+    for (let i = 0; i < ruleList.length; i++){
+        let tmp = document.createElement("BUTTON")
+        tmp.setAttribute("class", "ruleclass")
+        tmp.setAttribute("id", String(i)+"b")
+        tmp.setAttribute("onClick", "daftRulesRead(this.id)")
+        tmp.innerHTML = ("Rule "+ String(i))
+        dalist.appendChild(tmp)
+    }
+}
+
+//Takes the selected rule and prints out the binary form and the combos
+function daftRulesRead(selfid){
+    let rdex = selfid.replace("b","");
+    let rulestring = ruleList[rdex];
+    let combolist = daftRuleParser(rulestring);
+    runRule = combolist
+    console.log(combolist[0])
+    document.getElementById("ruleNum").innerHTML = "Rule: " + String(rdex)
+    document.getElementById("ruleBin").innerHTML = "||  Binary: " + rulestring
+    document.getElementById("000").innerHTML = combolist[0]
+    document.getElementById("001").innerHTML = combolist[1]
+    document.getElementById("010").innerHTML = combolist[2]
+    document.getElementById("011").innerHTML = combolist[3]
+    document.getElementById("100").innerHTML = combolist[4]
+    document.getElementById("101").innerHTML = combolist[5]
+    document.getElementById("110").innerHTML = combolist[6]
+    document.getElementById("111").innerHTML = combolist[7]
+}
+
+//Final function, called on submit presss
+function daftRunThatShit(){
+    daftClear()
+    daftAllmighty(starter, runRule)
+}
+
 //Running stuff
-daftDefault()
 daftRules(8,"")
+daftArrayStarter()
+daftRulesBuild()
+daftRulesRead("90b")
+
+
+
+//DEPRECATED
+//Initial function, generates the design from the starting array and a given ruleset
 var count = 0;
 
-//Initial function, generates the design from the starting array and a given ruleset
 function daftA(){
     daftAllmighty(starter, daftRuleParser(ruleList[count]))
     count++;
@@ -218,5 +316,3 @@ function daftC(){
     }
     setTimeout(daftA, 100)
 }
-
-daftA()

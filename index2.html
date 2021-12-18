@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="index2.css">
+    </head>
+    <body>
+
+        <header>
+            <div class="inner">
+                <div id="fancy">
+                
+                </div>
+                <nav>
+                    <a href="#news">News</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#blog">Blog</a>
+                </nav>
+
+            </div>
+
+        </header>
+
+        <main>
+            <div class="inner">
+                <div id="content">
+                    <div id="title">
+                        <h1>256 Rules</h1>
+                        <h3>| Fun with Cellular Automata |</h3>
+                    </div>
+                    <div class="maintext">
+                        
+                        <p>If you are confused, scroll further down, there's a bit of an explanation below the display screen.</p>
+                        <p></p>
+                        <hr>
+                        <p></p>
+                        <p></p>
+                        <p>With the menus below, you can choose the Rule that you want to use, and customize the starting array. When done, press the 'Run Rule' button</p>
+                        <p>As you can see, it is initialized to Rule 90, but the starting array is empty, enjoy!</p>
+                        <p>Most of the Rules don't do much, so it might take a while to find a fun one. <b>Most of the good ones are above 100</b></p>
+                        <p>(One of my favorites is Rule 198. 150 is also fun.)</p>
+                    </div>
+                    <div class="items" id="rules">
+                        <div id="dalist">
+
+                        </div>
+                        <div id="dainfo">
+                            <div id=d1>
+                                <div id=e1>
+                                    <h2 id="ruleNum">Rule 0</h2>
+                                </div>
+                                <div id="e2">
+                                    <h2 id="ruleBin">||  Binary 00000000</h2>
+                                </div>
+                            </div>
+                            <div id=d2>
+                                <div id=e3>
+                                    <h3 id="combo">Combos:</h3>
+                                </div>
+                                <div id="e4">
+                                    <table>
+                                        <tr>
+                                            <td>000 :</td>
+                                            <td class="comout" id="000"> </td>
+                                            <td>001 :</td>
+                                            <td class="comout" id="001"> </td>
+                                            <td>010 :</td>
+                                            <td class="comout" id="010"> </td>
+                                            <td>011 :</td>
+                                            <td class="comout" id="011"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>100 :</td>
+                                            <td class="comout" id="100"> </td>
+                                            <td>101 :</td>
+                                            <td class="comout" id="101"> </td>
+                                            <td>110 :</td>
+                                            <td class="comout" id="110"> </td>
+                                            <td>111 :</td>
+                                            <td class="comout" id="111"> </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="darun">
+                            <button id="runbutt" onclick="daftRunThatShit()">Run Rule</button>
+                        </div>
+                    </div>
+                    <div class="items" id="array">
+                        <div id="bobo">
+                            
+                        </div>
+                    </div>
+                    <canvas id="myCanvas" width="910" height="500" style="background:#FFFFFF;"></canvas>
+                    <div class="maintext">
+                        <p>This program is an implementation of Cellular Automata.</p>
+                        <p>It requires two things to run:</p>
+                        <ul>
+                            <li>A 1-dimensional array of 1s and 0s (Array)</li>
+                            <li>A rule with all possible outcomes of an n-long combination, where n is some number(Rule)</li>
+                        </ul>
+                        <p>The program will iterate over every value in the Array while also looking at the values to the left and right of the current.</p>
+                        <p>These 3 digits, each of which can either be a 1 or a 0, give 8 possible combinations, each one of which is covered in the Rule.</p>
+                        <p>A Rule is an 8 digit long array, each digit represents the outcome for the combo defined at its index position (so the first value in the Rule array is for the first combo '000')</p>
+                        <p>The following list is the order in which I've listed the combos defined in a Rule.</p>
+                        <ol>
+                            <li>000</li>
+                            <li>001</li>
+                            <li>010</li>
+                            <li>011</li>
+                            <li>100</li>
+                            <li>101</li>
+                            <li>110</li>
+                            <li>111</li>
+                        </ol>
+                        <p>The Rule defines the outcome of any combo as a 1 or a 0, which is then passed into a new 1-dimensional array to start the process over again.</p>
+                        <p>For example, say we have a Rule '01011010' and a combo of '010' shows up in the Array. We take the combo and compare it against each in the above list, until one matches.</p>
+                        <p>While going down the list, starting at zero, we count how many combos we pass until we match. The number we have is the index of that combo.</p>
+                        <p>We then compare that to the Rule, starting at 0, we count along until the index of the combo matches our position on the Rule.</p>
+                        <p>The value at this position is the outcome of that combo with that Rule. This process is done over 500 times per line in this simulation, all very very quickly.</p>
+                        <hr>
+                        <p>There are a total of 256 Rules and they are commonly referred to by their Wolfram Code (invented by Stephen Wolfram (certified mathematical badass)) which simply uses the binary value of the Rule. For example, the code '01011010' is Rule 90 because its binary value is 90.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <footer>
+            <div class="inner">
+                <div class="footerbloc" id="blockA"></div>
+                <div class="footerbloc" id="blockB"></div>
+                <div class="footerbloc" id="blockC"></div>
+            </div>
+        </footer>
+
+        <script src="index.js"></script>
+    </body>
+</html>
