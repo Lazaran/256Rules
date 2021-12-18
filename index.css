@@ -248,12 +248,12 @@ header > .inner {
     height: 80%;
     width: 150px;
     border:none;
-    background: #F3EADA;
+    background: #B3AA99;
     margin: 20px;
     font-size: larger;
     font-weight: bolder;
 }
 
 #runbutt:hover {
-    background: #B3AA99;
+    background: #8D8576;
 }
